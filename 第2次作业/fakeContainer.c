@@ -150,7 +150,6 @@ int main() {
     }
 
     int child_pid = clone(child_main, child_stack + STACK_SIZE, CLONE_NEWNET | CLONE_NEWNS | CLONE_NEWPID | CLONE_NEWIPC | CLONE_NEWUTS | SIGCHLD, NULL);
-    printf("%d\n",child_pid);
 
     struct cgroup* cg = cgroup_control(child_pid);
 

@@ -40,6 +40,8 @@ chains：
 
 sudo iptables -A INPUT -s 192.168.202.131 -j DROP
 
+ ![image](https://github.com/Ewardnewget/OSlab/raw/master/第3次作业/pic/refuse.png)
+
 ##### 2）只开放本机的http和ssh服务，其余协议与端口均拒绝；
 
 sudo iptables -P INPUT DROP
@@ -56,9 +58,23 @@ sudo iptables -A INPUT -p tcp --dport 80 -m state --state NEW,ESTABLISHED -j ACC
 
 sudo iptables -A OUTPUT -p tcp --sport 80 -m state --state NEW,ESTABLISHED -j ACCEPT
 
+拒绝所有访问
+
+ ![image](https://github.com/Ewardnewget/OSlab/raw/master/第3次作业/pic/refuse_all.png)
+ 
+开放ssh和http
+
+ ![image](https://github.com/Ewardnewget/OSlab/raw/master/第3次作业/pic/open_ssh_http.png)
+
+测试ssh
+
+ ![image](https://github.com/Ewardnewget/OSlab/raw/master/第3次作业/pic/ssh_open.png)
+
 ##### 3）拒绝回应来自某一特定IP地址的ping命令;
 
+sudo iptables -I OUTPUT -s 192.168.202.131 -p icmp --icmp-type echo-reply -j DROP
 
+![image](https://github.com/Ewardnewget/OSlab/raw/master/第3次作业/pic/refuse_ping.png)
 
 #### 3. 解释路由与交换这两个概念的区别，并介绍bridge, veth这两种Linux网络设备的工作原理
 
@@ -68,13 +84,13 @@ sudo iptables -A OUTPUT -p tcp --sport 80 -m state --state NEW,ESTABLISHED -j AC
 2. 数据通路结构不同：交换机之间不允许存在回路，而交换机允许贿赂的存在，且回路能够更好地进行负载平衡，因此交换机负载更为集中，路由器负载更加均衡。
 3. 主要功能不同：交换机作为桥接设备也能完成不同链路层和物理层之间的转换，但这种转换过程比较复杂，会降低交换机的转发速度。因此目前交换机主要完成相同或相似物理介质和链路协议的网络互连； 而路由器主要用于不同网络之间互连，因此能连接不同物理介质、链路层协议和网络层协议的网络。
 
-##### bridge
+##### bridge  
 
 Bridge是 Linux 上用来做 TCP/IP 二层协议交换的设备，是一个虚拟交换机，和物理交换机有类似的功能，但是与单纯的交换机不同，交换机只是一个二层设备，对于接收到的报文，要么转发、要么丢弃；而运行着linux内核的机器本身就是一台主机，有可能就是网络报文的目的地，网桥收到的报文除了转发和丢弃，还可能被送到网络协议栈的上层（网络层）。
 
 bridge主要功能为MAC地址学习和报文转发。bridge可以attach若干网络设备，从而将它们桥接起来，bridge有相应的数据结构维护其连接的设备, 端口链表, 转发表。bridge收到数据包后根据MAC地址进行匹配，若匹配成功则转发至目的端口，否则进行广播。
 
-##### veth
+##### veth  
 
 veth是linux中的一种虚拟网络设备，通常成对出现，一端连接的是内核协议栈，另一端两个设备彼此相连，一个设备收到协议栈的数据发送请求后，会将数据发送到另一个设备上去。主要作用是完成数据注入。
 
@@ -107,7 +123,13 @@ system("ip addr add 192.168.3.102/24 dev veth1");
 system("route add default gw 192.168.3.101");
 ```
 
-
+ container ping host
+ 
+ ![image](https://github.com/Ewardnewget/OSlab/raw/master/第3次作业/pic/ping_host.PNG)
+ 
+ host ping container
+ 
+ ![image](https://github.com/Ewardnewget/OSlab/raw/master/第3次作业/pic/ping_container.PNG)
 
 
 
@@ -117,8 +139,7 @@ system("route add default gw 192.168.3.101");
 system("sudo iptables -t nat -A POSTROUTING -s 192.168.3.102/24 -j MASQUERADE");
 ```
 
-
-
+ ![image](https://github.com/Ewardnewget/OSlab/raw/master/第3次作业/pic/ping_out.PNG)
 
 
 ##### 2）实现功能1)后在fakeContainer中部署一个nginx web服务器,使得可以通过服务器的公网IP访问到该nginx服务器web服务;
@@ -131,11 +152,11 @@ sudo iptables -t nat -A PREROUTING -p tcp --dport 8888 -j DNAT --to-destination 
 ```
 
 
-
+![image](https://github.com/Ewardnewget/OSlab/raw/master/第3次作业/pic/nginx.PNG)
 
 
 ##### 3)解释一个外部用户在从fakeContainer中nginx服务器得到web服务这个过程中，网络包在Linux服务器上经过了什么样的处理流程。
 
-
+![image](https://github.com/Ewardnewget/OSlab/raw/master/第3次作业/pic/web.PNG)
 
 如图，外部数据包通过eth0进入，经由iptables实现的NAT实现判定转发，判断目的ip为本机地址，将该数据包转发到INPUT链，之后根据端口转发，经由br0、veth0、veth1进入容器网络栈处理，处理结果经原路返回。

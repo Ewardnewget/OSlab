@@ -34,9 +34,13 @@ vxlan，即可扩展虚拟局域网，随着大规模计算集群的发展，普
 
 网络结构如下：
 
+<<<<<<< HEAD
 
  ![image](https://github.com/Ewardnewget/OSlab/raw/master/第4次作业/pic/vxlan网络结构.png)
 
+=======
+![vxlan网络结构](F:\Desktop\github\OSlab\第4次作业\pic\vxlan网络结构.png)
+>>>>>>> e2afb99... homework4
 
 NVE(Network Virtrualization Edge网络虚拟边缘节点）是实现网络虚拟化的功能实体，报文经过NVE封装后，NVE之间就可以在基于L3的网络基础上建立起L2虚拟网络。网络设备实体以及服务器实体上的VSwitch都可以作为NVE。
 
@@ -44,7 +48,11 @@ VTEP为VXLAN隧道的端点，封装在NVE中，用于VXLAN报文的封装和解
 
 vxlan采用MAC in DUP的技术，用三层协议封装二层协议，
 
+<<<<<<< HEAD
  ![image](https://github.com/Ewardnewget/OSlab/raw/master/第4次作业/pic/vxlan-2.png)
+=======
+![vxlan-2](F:\Desktop\github\OSlab\第4次作业\pic\vxlan-2.png)
+>>>>>>> e2afb99... homework4
 
 vxlan header：共计8bytes，其中24bits为VNI（Vxlan Netword identifier），类似VLAN ID，用于区分VXLAN段，不同VXLAN段的虚拟机不能直接二层相互通信。
 
@@ -106,6 +114,7 @@ GRE和VXLAN都是用于封装其它协议的，都用三层协议封装二层协
  sudo iptables -t nat -A POSTROUTING -s 172.16.2.0/24 -j MASQUERADE
 
 ```
+<<<<<<< HEAD
 网桥结构：
 
 ![image](https://github.com/Ewardnewget/OSlab/raw/master/第4次作业/pic/ovs-br-show.png)
@@ -115,6 +124,10 @@ GRE和VXLAN都是用于封装其它协议的，都用三层协议封装二层协
 ![image](https://github.com/Ewardnewget/OSlab/raw/master/第4次作业/pic/c1_config.png)
 
 ![image](https://github.com/Ewardnewget/OSlab/raw/master/第4次作业/pic/c2_config.png)
+=======
+
+
+>>>>>>> e2afb99... homework4
 
 ```shell
 #192.168.202.152上
@@ -129,6 +142,7 @@ GRE和VXLAN都是用于封装其它协议的，都用三层协议封装二层协
 #添加远程端口，连接192.168.202.151
  sudo ovs-vsctl add-port ovs-br gre_151 -- set interface gre_151 type=gre option:remote_ip=192.168.202.151
 ```
+<<<<<<< HEAD
 网桥结构：
 
 ![image](https://github.com/Ewardnewget/OSlab/raw/master/第4次作业/pic/ovs-br-show2.png)
@@ -136,11 +150,14 @@ GRE和VXLAN都是用于封装其它协议的，都用三层协议封装二层协
 容器设置如下：
 
 ![image](https://github.com/Ewardnewget/OSlab/raw/master/第4次作业/pic/c3_config.png)
+=======
+>>>>>>> e2afb99... homework4
 
 实验结果如下：
 
 c1 ping c3（同一子网，不同host）：
 
+<<<<<<< HEAD
 ![image](https://github.com/Ewardnewget/OSlab/raw/master/第4次作业/pic/c1_ping_c3.png)
 
 c2 ping c3 （不同子网，不同host）:
@@ -158,6 +175,25 @@ c3 ping c1（同一子网，不同host）：
 c3 ping c2 （不同子网，不同host） ：
 
 ![image](https://github.com/Ewardnewget/OSlab/raw/master/第4次作业/pic/c3_ping_c2.png)
+=======
+
+
+c2 ping c3 （不同子网，不同host）:
+
+
+
+c2 ping c1 （同一host，不同子网）：
+
+
+
+c3 ping c1（同一子网，不同host）：
+
+
+
+c3 ping c2 （不同子网，不同host） ：
+
+
+>>>>>>> e2afb99... homework4
 
 ##### 使用ovs对容器集群的网络进行流量控制，对每个容器集群出口上行下行流量进行限速并测评
 
@@ -170,7 +206,11 @@ c3 ping c2 （不同子网，不同host） ：
 
 限制前：
 
+<<<<<<< HEAD
 ![image](https://github.com/Ewardnewget/OSlab/raw/master/第4次作业/pic/before_qos.png)
+=======
+
+>>>>>>> e2afb99... homework4
 
 ```shell
 #带宽上限为1mb
@@ -180,7 +220,11 @@ c3 ping c2 （不同子网，不同host） ：
 
 结果如下：
 
+<<<<<<< HEAD
 ![image](https://github.com/Ewardnewget/OSlab/raw/master/第4次作业/pic/after_1M.png)
+=======
+
+>>>>>>> e2afb99... homework4
 
 ```shell
 #带宽上限为10mb
@@ -190,7 +234,11 @@ c3 ping c2 （不同子网，不同host） ：
 
 结果如下：
 
+<<<<<<< HEAD
 ![image](https://github.com/Ewardnewget/OSlab/raw/master/第4次作业/pic/after_10M.png)
+=======
+
+>>>>>>> e2afb99... homework4
 
 结果分析：可以看到带宽收到了明显的限制，但仍未达到最大带宽，原因可能是测试未到达上限或者最大突发流量限制。
 
@@ -208,4 +256,8 @@ c3 ping c2 （不同子网，不同host） ：
 
 [GRE与Vxlan网络详解](http://www.cnblogs.com/xingyun/p/4620727.html)
 
+<<<<<<< HEAD
 课件链接
+=======
+课件链接
+>>>>>>> e2afb99... homework4

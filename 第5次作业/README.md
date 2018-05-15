@@ -32,7 +32,7 @@ GlusterFS是一种Scale-Out的去中心化的分布式存储解决方案，具�
 
 整体架构如下：
 
-![Gluster_arch](F:\Desktop\github\OSlab\第5次作业\pic\Gluster_arch.png)
+![image](https://github.com/Ewardnewget/OSlab/raw/master/第5次作业/pic/Gluster_arch.png)
 
 GlusterFS具有以下特点：
 
@@ -45,7 +45,7 @@ GlusterFS具有以下特点：
 
 使用方法：
 
-![Gluster_work](F:\Desktop\github\OSlab\第5次作业\pic\Gluster_work.png)
+![Gluster_work](https://github.com/Ewardnewget/OSlab/raw/master/第5次作业/pic/Gluster_work.png)
 
 1. 用户通过glusterfs的mount point 来读写数据，用户请求被递交给本地VFS处理，VFS将数据递交给FUSE内核文件系统，FUSE将数据转交给client
 2. client对数据进行一系列处理，利用hash算法计算出目标文件所在服务器，并向该服务器发送请求。
@@ -57,7 +57,7 @@ GlusterFS具有以下特点：
 
 AUFS是一种Union File System，即将不同物理位置的目录合并mount到同一个目录中。类似于层级结构，高层共享低层的文件，每层具有不同的权限，可以通过mount进行设置，一般低层文件为read-only，高层为ro+wh，对于共享文件的写操作，采用增量存储形式，类似于copy-on-write。AUFS可用来实现文件系统的复用，降低重复性文件的存储需求，减少存储空间要求。
 
-![AUFS](F:\Desktop\github\OSlab\第5次作业\pic\AUFS.png)
+![AUFS](https://github.com/Ewardnewget/OSlab/raw/master/第5次作业/pic/AUFS.png)
 
 使用方式：将共享文件进行挂载即可，挂载时设置好访问权限：
 
@@ -91,7 +91,7 @@ sudo gluster volume start gvol0
 sudo gluster volume info gvol0
 ```
 
-![gluster_info](F:\Desktop\github\OSlab\第5次作业\pic\gluster_info.png)
+![gluster_info](https://github.com/Ewardnewget/OSlab/raw/master/第5次作业/pic/gluster_info.png)
 
 ```shell
 # in container c
@@ -106,9 +106,9 @@ sudo mknod /dev/fuse c 10 229
 sudo mount -t glusterfs OSlab1:/home/gitdog/gvol0 /data/
 ```
 
-![lxc_gluster](F:\Desktop\github\OSlab\第5次作业\pic\lxc_gluster.png)
+![lxc_gluster](https://github.com/Ewardnewget/OSlab/raw/master/第5次作业/pic/lxc_gluster.png)
 
-![host_gluster](F:\Desktop\github\OSlab\第5次作业\pic\host_gluster.png)
+![host_gluster](https://github.com/Ewardnewget/OSlab/raw/master/第5次作业/pic/host_gluster.png)
 
 #### PART4
 
@@ -126,9 +126,9 @@ mount -t aufs -o dirs=/var/lib/lxc/c/rootfs/=ro none /var/lib/lxc/aufs_c2/rootfs
 
 此时，aufs_c2为只读状态：
 
-![aufs0](F:\Desktop\github\OSlab\第5次作业\pic\aufs0.png)
+![aufs0](https://github.com/Ewardnewget/OSlab/raw/master/第5次作业/pic/aufs0.png)
 
-![aufs1](F:\Desktop\github\OSlab\第5次作业\pic\aufs1.png)
+![aufs1](https://github.com/Ewardnewget/OSlab/raw/master/第5次作业/pic/aufs1.png)
 
 ```shell
 umount /var/lib/lxc/aufs_c2/rootfs
@@ -138,7 +138,7 @@ mount -t aufs -o dirs=/var/lib/lxc/aufs_c2/aufs_c2_write/=rw:/var/lib/lxc/c/root
 
 此时，可写：
 
-![aufs2](F:\Desktop\github\OSlab\第5次作业\pic\aufs2.png)
+![aufs2](https://github.com/Ewardnewget/OSlab/raw/master/第5次作业/pic/aufs2.png)
 
 #### 参考
 

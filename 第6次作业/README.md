@@ -22,7 +22,7 @@ sudo python3 server.py
 
 #### 系统设计
 
-
+![image](https://github.com/Ewardnewget/OSlab/raw/master/第6次作业/pic/arch.png)
 
 task请求文件、镜像、输入文件、输出文件等存储在glusterfs中。
 
@@ -34,7 +34,21 @@ task请求文件、镜像、输入文件、输出文件等存储在glusterfs中�
 
 #### 测试
 
+![image](https://github.com/Ewardnewget/OSlab/raw/master/第6次作业/pic/echo.PNG)
 
+![image](https://github.com/Ewardnewget/OSlab/raw/master/第6次作业/pic/psef.PNG)
+
+![image](https://github.com/Ewardnewget/OSlab/raw/master/第6次作业/pic/echo_success.PNG)
+
+![image](https://github.com/Ewardnewget/OSlab/raw/master/第6次作业/pic/psef_running.PNG)
+
+![image](https://github.com/Ewardnewget/OSlab/raw/master/第6次作业/pic/echo_result.png)
+
+![image](https://github.com/Ewardnewget/OSlab/raw/master/第6次作业/pic/ps_result.png)
+
+![image](https://github.com/Ewardnewget/OSlab/raw/master/第6次作业/pic/error.PNG)
+
+![image](https://github.com/Ewardnewget/OSlab/raw/master/第6次作业/pic/error_failed.PNG)
 
 #### 问题和改进点
 
